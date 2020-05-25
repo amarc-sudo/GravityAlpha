@@ -1,1 +1,1 @@
-include 'desktop', 'core'
+include 'desktop', 'core', ':mysql-connector-java-5.1.15-bin'

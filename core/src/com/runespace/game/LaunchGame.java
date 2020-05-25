@@ -6,9 +6,12 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.runespace.game.bdd.MySql;
 import com.runespace.game.handlers.CustomInputHandling;
 import com.runespace.game.handlers.GameStateManager;
 import com.runespace.game.states.LoadingScreen;
+
+import java.sql.SQLException;
 
 public class LaunchGame extends com.badlogic.gdx.Game implements Screen {
 	public static SpriteBatch batch;
@@ -24,8 +27,13 @@ public class LaunchGame extends com.badlogic.gdx.Game implements Screen {
 	public void create () {
 		batch = new SpriteBatch();
 		gsm = new GameStateManager();
-		
-		
+	    MySql.connect("gravity", "010818Ma");
+		try {
+			MySql.addScore(1, 200);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		MySql.disconnect();
 		//AssetManager
 		assetManager = new AssetManager();
 
@@ -68,7 +76,7 @@ public class LaunchGame extends com.badlogic.gdx.Game implements Screen {
     }
 
 	/**
-	 * Called when this screen is no longer the current screen for a {@link Game}.
+	 * Called when this screen is no longer the current screen for a {}.
 	 */
 	@Override
 	public void hide() {
@@ -76,7 +84,7 @@ public class LaunchGame extends com.badlogic.gdx.Game implements Screen {
 	}
 
 	/**
-	 * Called when this screen becomes the current screen for a {@link Game}.
+	 * Called when this screen becomes the current screen for a {}.
 	 */
 	@Override
 	public void show() {

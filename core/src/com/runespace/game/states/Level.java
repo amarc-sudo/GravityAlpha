@@ -51,7 +51,10 @@ public abstract class Level extends GameState implements ApplicationListener {
 	//game over elements
 	protected Boolean gameOverBool;
 	protected GameOver screenGameOver;
-	
+
+	//win elements
+    protected Boolean win = false;
+
 	//box2d elements
 	protected World world;
 	protected BodyDef bdef;
@@ -138,7 +141,7 @@ public abstract class Level extends GameState implements ApplicationListener {
 
 	public void update(float dt) {
 		//update World
-		if(!gameOverBool) {
+		if(!gameOverBool || !win) {
 			scoreUpdate();
 			world.step(1f / 60f, 6, 2);
 		}
@@ -294,6 +297,12 @@ public abstract class Level extends GameState implements ApplicationListener {
 			gameOverBool = true;
 		}
 	}
+
+	public void checkWin() {
+	    if(customContactListener.isWin()){
+	        win = true;
+        }
+    }
 	
 	public void gameOver() {
         LaunchGame.assetManager.unload("maps/sans.tmx");
