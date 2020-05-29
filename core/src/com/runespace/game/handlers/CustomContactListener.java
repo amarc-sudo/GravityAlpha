@@ -24,10 +24,10 @@ public class CustomContactListener implements ContactListener {
 		Fixture fB = contact.getFixtureB();
 
 		if(fB.getUserData() != null && fB.getUserData().equals("win")) {
-			win--;
+			win++;
 		}
 		if(fA.getUserData() != null && fA.getUserData().equals("win")) {
-			win--;
+			win++;
 		}
 
 		if(fA.getUserData() != null && fA.getUserData().equals("foot")) {
@@ -40,12 +40,14 @@ public class CustomContactListener implements ContactListener {
 			footContacts++;
 		}
 		if(fA.getUserData()!= null && fA.getUserData().equals("sensorG")) {
-			sensorGContacts++;
+			if (sensorGContacts==0)
+				sensorGContacts++;
 			
 		}
 		
 		if(fB.getUserData()!= null && fB.getUserData().equals("sensorG")) {
-			sensorGContacts++;
+			if (sensorGContacts==0)
+				sensorGContacts++;
 			
 		}
 		if(fA.getUserData() != null && fA.getFilterData().categoryBits == Constants.HEAD_BIT) {
@@ -78,7 +80,8 @@ public class CustomContactListener implements ContactListener {
 
 		if(fA.getUserData() != null && fA.getFilterData().categoryBits == Constants.COINT_BIT) {
 		    coinContacts++;
-			((Coin)fB.getUserData()).onHeadHit();
+		    System.out.println(fA.getUserData().toString());
+			((Coin)fA.getUserData()).onHeadHit();
 		}
 
 		if(fB.getUserData() != null && fB.getFilterData().categoryBits == Constants.COINT_BIT) {
@@ -103,10 +106,12 @@ public class CustomContactListener implements ContactListener {
 			footContacts--;
 		}
 		if(fA.getUserData() != null && fA.getUserData().equals("sensorG")) {
+			if (sensorGContacts==1)
 			sensorGContacts--;
 		}
 		
 		if(fB.getUserData() != null && fB.getUserData().equals("sensorG")) {
+			if (sensorGContacts==1)
 			sensorGContacts--;
 		}
 		if(fA.getUserData() != null && fA.getFilterData().categoryBits == Constants.HEAD_BIT) {

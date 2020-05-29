@@ -16,7 +16,7 @@ import com.runespace.game.LaunchGame;
 import com.runespace.game.handlers.GameStateManager;
 import com.runespace.game.utils.Constants;
 
-public class MainMenue2 extends GameState {
+public class MainMenu extends GameState {
 
 	
 	/*
@@ -41,7 +41,7 @@ public class MainMenue2 extends GameState {
 	
 
 	
-	public MainMenue2(GameStateManager gsm, Boolean gameEnd) {
+	public MainMenu(GameStateManager gsm, Boolean gameEnd) {
 		super(gsm);
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
@@ -65,8 +65,8 @@ public class MainMenue2 extends GameState {
         buttonTab = new TextButton[5];
 
     
-        for(int i = 0 ; i < 5 ; i++){
-        	if(i != 2)
+        for(int i = 0 ; i < 4 ; i++){
+        	if(i != 3)
         		buttonTab[i] = new TextButton("Level " +(i+1), textButtonStyle);
 			else
 				buttonTab[i] = new TextButton("highscore ", textButtonStyle);
@@ -83,13 +83,13 @@ public class MainMenue2 extends GameState {
 	protected void handleInput() {
 		// TODO Auto-generated method stub
 		if(buttonTab[0].isPressed())
-			this.gsm.set(new Level3(gsm, Constants.GRAVITY_WORLD));
+			this.gsm.set(new Level1(gsm, Constants.GRAVITY_WORLD, "level1", 1));
 		if(buttonTab[1].isPressed())
-			this.gsm.set(new Level4(gsm, Constants.GRAVITY_WORLD));
+			this.gsm.set(new Level1(gsm, Constants.GRAVITY_WORLD, "level2", 2));
         if(buttonTab[2].isPressed())
-            this.gsm.set(new ScoreVieweur(gsm));
+            this.gsm.set(new Level1(gsm, Constants.GRAVITY_WORLD, "level3", 3));
 		if(buttonTab[3].isPressed())
-			this.gsm.set(new Level4(gsm, Constants.GRAVITY_WORLD));
+            this.gsm.set(new ScoreVieweur(gsm));
 	}
 
 	@Override

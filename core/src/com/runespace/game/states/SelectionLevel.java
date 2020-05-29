@@ -3,6 +3,9 @@ package com.runespace.game.states;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.runespace.game.handlers.GameStateManager;
 
+/**
+ * a Construire plus tard
+ */
 public class SelectionLevel extends GameState {
 
 	public SelectionLevel(GameStateManager gsm) {

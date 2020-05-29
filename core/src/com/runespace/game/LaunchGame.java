@@ -27,13 +27,6 @@ public class LaunchGame extends com.badlogic.gdx.Game implements Screen {
 	public void create () {
 		batch = new SpriteBatch();
 		gsm = new GameStateManager();
-	    MySql.connect("gravity", "010818Ma");
-		try {
-			MySql.addScore(1, 200);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		MySql.disconnect();
 		//AssetManager
 		assetManager = new AssetManager();
 

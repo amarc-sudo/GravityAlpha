@@ -1,5 +1,7 @@
 package com.runespace.game.states;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.NoSuchElementException;
 
 import com.badlogic.gdx.Gdx;
@@ -13,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.runespace.game.LaunchGame;
+import com.runespace.game.bdd.MySql;
 import com.runespace.game.handlers.GameStateManager;
 import com.runespace.game.scoreboard.ScoreBoard;
 
@@ -34,8 +37,8 @@ public class ScoreVieweur extends GameState {
     ScoreBoard highscore;
     public ScoreVieweur(GameStateManager gsm) {
         super(gsm);
-        highscore = new ScoreBoard();
-        highscore.load("level3");
+        //highscore = new ScoreBoard();
+        //highscore.load("level3");
         stage = new Stage();
         background = LaunchGame.assetManager.get("background.jpg");
         backImage = new Image(background);
@@ -53,15 +56,18 @@ public class ScoreVieweur extends GameState {
 
         textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = font;
-        button = new TextButton[6];
-        for(int i = 0 ;i < 6; i++ ) {
+        button = new TextButton[4];
+        String text = null;
+        MySql.connect("gravity_guest", "GravityMarc");
+        for(int i = 0 ;i < 4; i++ ) {
             try {
-                highscore.load("level"+(i+1));
-                if(i<5)
-                    button[i] = new TextButton("level "+(i+1)+ " : " + highscore.maxList(), textButtonStyle);
+                //highscore.load("level"+(i+1));
+                if(i<3){
+                    text = levelScore(i+1);
+                    button[i] = new TextButton(text, textButtonStyle);}
                 else{
 
-                    button[i] = new TextButton("return", textButtonStyle);
+                    button[i] = new TextButton("menu", textButtonStyle);
                 }
 
             } catch (ClassCastException e) {
@@ -72,20 +78,21 @@ public class ScoreVieweur extends GameState {
             }
             button[i].setWidth(150f);
             button[i].setHeight(100f);
-            if(i<5)
+            if(i<3)
                 button[i].setPosition(Gdx.graphics.getWidth()/2f, Gdx.graphics.getHeight()/1.5f  - ((button[0].getHeight()*1.5f)*i)/2);
             else {
                 button[i].setPosition(Gdx.graphics.getWidth()/ 2f, Gdx.graphics.getHeight()/1.5f - ((button[0].getHeight() * 1.5f) * i)/2);
             }
              stage.addActor(button[i]);
         }
+        MySql.disconnect();
 
     }
 
     @Override
     protected void handleInput() {
-        if(button[5].isPressed())
-            gsm.push(new MainMenue2(gsm, false));
+        if(button[3].isPressed())
+            gsm.push(new MainMenu(gsm, false));
     }
 
     @Override
@@ -116,5 +123,10 @@ public class ScoreVieweur extends GameState {
         cam.viewportWidth = width;
         cam.viewportHeight = height;
         cam.update();
+    }
+
+    public String levelScore(int i){
+        String rs = MySql.getQuerry("select max(score) , id from Score where level = " + i, i);
+        return rs;
     }
 }

@@ -44,7 +44,7 @@ public class LoadingScreen extends GameState {
 	public void update(float dt) {
 		// TODO Auto-generated method stub
 		if(LaunchGame.assetManager.update()){
-			this.gsm.set(new MainMenue2(gsm, false));
+			this.gsm.set(new MainMenu(gsm, false));
 		}
 	}
 
@@ -73,11 +73,12 @@ public class LoadingScreen extends GameState {
 
 	public void queueAssets(){
 		LaunchGame.assetManager.setLoader(TiledMap.class,  new TmxMapLoader(new InternalFileHandleResolver()));
-		LaunchGame.assetManager.load("maps/Main.tmx", TiledMap.class);
+		LaunchGame.assetManager.load("maps/level1.tmx", TiledMap.class);
 		LaunchGame.assetManager.setLoader(TiledMap.class,  new TmxMapLoader(new InternalFileHandleResolver()));
-		LaunchGame.assetManager.load("maps/sans.tmx", TiledMap.class);
+		LaunchGame.assetManager.load("maps/level2.tmx", TiledMap.class);
 		LaunchGame.assetManager.setLoader(TiledMap.class,  new TmxMapLoader(new InternalFileHandleResolver()));
-		LaunchGame.assetManager.load("maps/MetroidTest.tmx", TiledMap.class);
+		LaunchGame.assetManager.load("maps/level3.tmx", TiledMap.class);
+
 		//load Textures
 		LaunchGame.assetManager.load("Sprites/player.png", Texture.class);
 		LaunchGame.assetManager.load("Sprites/p1_stand.png", Texture.class);
