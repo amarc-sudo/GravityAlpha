@@ -84,7 +84,8 @@ public abstract class LevelAbstract extends GameState implements ApplicationList
 	//level int
 	protected int level;
 
-
+	long startTime;
+	long ellaspeTime;
 	BitmapFont font;
 	public LevelAbstract(GameStateManager gsm, Vector2 gravity) {
 		super(gsm);
@@ -102,12 +103,12 @@ public abstract class LevelAbstract extends GameState implements ApplicationList
 		//set contactlistener
 		customContactListener = new CustomContactListener();
 		world.setContactListener(customContactListener);
-		debug.setDrawBodies(true);
+		debug.setDrawBodies(false);
 		//setup camera
 		cam.setToOrtho(false, Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
 		//set hud
 		hud = new Hud(new ExtendViewport(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT, cam), LaunchGame.batch);
-		hud.update(score, jump);
+
 	}
 	
 	@Override
@@ -119,6 +120,7 @@ public abstract class LevelAbstract extends GameState implements ApplicationList
 			jump++;
 		}
 		if(Gdx.input.isKeyJustPressed((Input.Keys.A)));
+			debug.setDrawBodies(false);
 	}
 
 	public void update(float dt) {
@@ -126,13 +128,14 @@ public abstract class LevelAbstract extends GameState implements ApplicationList
 		if(!gameOverBool && !win) {
 			scoreUpdate();
 			world.step(1f / 60f, 6, 2);
+			hud.update(score, jump, dt);
 		}
 
 	}
 	
 	public void render(SpriteBatch sb) {
 		
-		hud.update(score, jump);
+
 		map.getTmr().setView(cam);
 		map.getTmr().render();
 		sb.setProjectionMatrix(cam.combined);
@@ -141,10 +144,16 @@ public abstract class LevelAbstract extends GameState implements ApplicationList
 	@Override
 	public void dispose() {
 		map.dispose();
+		hud.dispose();
+		screenWin.dispose();
+		screenGameOver.dispose();
 	}
 
 	@Override
 	public void resize(int width, int height) {
+		hud.resize(width, height);
+		screenGameOver.resize(width, height);
+		screenWin.resize(width, height);
 
 	}
 	
@@ -262,4 +271,16 @@ public abstract class LevelAbstract extends GameState implements ApplicationList
         return score;
     }
 
+    public boolean waitStart(){
+		startTime = System.currentTimeMillis();
+		long elapsedTime = System.currentTimeMillis() - startTime;
+		ellaspeTime = elapsedTime / 1000;
+		if(ellaspeTime < 9){
+			return true;
+		}
+		return false;
+	}
+	public void renderStart(){
+
+	}
 }

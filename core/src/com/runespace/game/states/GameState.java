@@ -16,7 +16,6 @@ public abstract class GameState {
 	public GameState(GameStateManager gsm) {
 		this.gsm = gsm;
 		cam = new OrthographicCamera();
-		System.out.println(Gdx.graphics.getWidth());
 
 	}
 
@@ -40,7 +39,6 @@ public abstract class GameState {
 
 	public Boolean checkResize(){
 		if(Gdx.graphics.getWidth() != Constants.WINDOW_WIDTH || Gdx.graphics.getHeight() != Constants.WINDOW_HEIGHT) {
-			System.out.println("cc");
 			return true;
 		}
 		else

@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.Filter;
 import com.runespace.game.LaunchGame;
 import com.runespace.game.MapsTiled.MapsTiledLevel;
 import com.runespace.game.bdd.MySql;
+import com.runespace.game.entities.Player;
 import com.runespace.game.handlers.GameStateManager;
 import com.runespace.game.item.Coin;
 import com.runespace.game.scoreboard.ScoreBoard;
@@ -50,7 +51,9 @@ public class Level1 extends LevelAbstract implements ApplicationListener {
 		for(MapObject object : map.getTiledMap().getLayers().get(12).getObjects().getByType(RectangleMapObject.class)) {
 			rect = ((RectangleMapObject) object).getRectangle();
 		}
-		this.createPlayer((int) rect.getX(),(int)rect.getY());
+		player = new Player(boxPlayer);
+		player.createPlayer((int) rect.getX(), (int) rect.getY(), world, bdef, fdef);
+		boxPlayer = player.getBody();
 	}
 
 	@Override
@@ -58,7 +61,11 @@ public class Level1 extends LevelAbstract implements ApplicationListener {
 		// TODO Auto-generated method stub
 		super.update(dt);
 		moveCam(4);
-		handleInput();
+		if(waitStart()) {
+			if (!gameOverBool && !win)
+				scoreUpdate();
+			handleInput();
+		}
 		checkGameOver();
 		checkWin();
 		gravityChange();
@@ -122,7 +129,7 @@ public class Level1 extends LevelAbstract implements ApplicationListener {
 		// TODO Auto-generated method stub
         Coin.resetTile();
 		super.dispose();
-
+		world.dispose();
 	}
 /*
 	@Override
@@ -170,6 +177,7 @@ public class Level1 extends LevelAbstract implements ApplicationListener {
 	public void winScore(){
 		score = hud.score;
 		try {
+
 			MySql.connect("gravity_guest", "GravityMarc");
 			MySql.addScore(levelInt, score);
 			MySql.disconnect();

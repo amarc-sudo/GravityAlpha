@@ -87,7 +87,8 @@ public class MainMenu extends GameState {
 		if(buttonTab[1].isPressed())
 			this.gsm.set(new Level1(gsm, Constants.GRAVITY_WORLD, "level2", 2));
         if(buttonTab[2].isPressed())
-            this.gsm.set(new Level1(gsm, Constants.GRAVITY_WORLD, "level3", 3));
+            //this.gsm.set(new Level1(gsm, Constants.GRAVITY_WORLD, "level3", 3));
+            this.gsm.set(new SelectionLevel(gsm));
 		if(buttonTab[3].isPressed())
             this.gsm.set(new ScoreVieweur(gsm));
 	}

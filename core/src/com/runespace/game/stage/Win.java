@@ -56,6 +56,10 @@ public class Win extends ApplicationAdapter {
 		
 		stage.addActor(table);
 	}
+	public void dispose(){
+		font.dispose();
+		stage.dispose();
+	}
 
 	public Stage Stage() {
 		return stage;
@@ -85,5 +89,9 @@ public class Win extends ApplicationAdapter {
 	}
 	public boolean menuPressed(){
 		return buttonMenu.isPressed();
+	}
+
+	public void resize(int width, int height){
+		stage.getViewport().update(width, height);
 	}
 }

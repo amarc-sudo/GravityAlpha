@@ -84,6 +84,12 @@ public class LoadingScreen extends GameState {
 		LaunchGame.assetManager.load("Sprites/p1_stand.png", Texture.class);
 		LaunchGame.assetManager.load("Sprites/p1_hurt.png", Texture.class);
 		LaunchGame.assetManager.load("Sprites/p1_jump.png", Texture.class);
+		LaunchGame.assetManager.load("Sprites/frame.png", Texture.class);
+		LaunchGame.assetManager.load("Sprites/sprite_de_base.png", Texture.class);
+		LaunchGame.assetManager.load("Sprites/sprite_de_base2.png", Texture.class);
+        LaunchGame.assetManager.load("Sprites/sprite_de_chute.png", Texture.class);
+        LaunchGame.assetManager.load("Sprites/sprite_de_saut.png", Texture.class);
+        LaunchGame.assetManager.load("Sprites/run.png", Texture.class);
 		LaunchGame.assetManager.load("button.png", Texture.class);
 		LaunchGame.assetManager.load("background.jpg", Texture.class);
 		LaunchGame.assetManager.load("background/aled.png", Texture.class);

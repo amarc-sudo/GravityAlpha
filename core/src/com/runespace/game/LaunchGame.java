@@ -10,6 +10,7 @@ import com.runespace.game.bdd.MySql;
 import com.runespace.game.handlers.CustomInputHandling;
 import com.runespace.game.handlers.GameStateManager;
 import com.runespace.game.states.LoadingScreen;
+import com.runespace.game.utils.Constants;
 
 import java.sql.SQLException;
 
@@ -25,6 +26,7 @@ public class LaunchGame extends com.badlogic.gdx.Game implements Screen {
 	
 	@Override
 	public void create () {
+		//System.out.println(Constants.NAME);
 		batch = new SpriteBatch();
 		gsm = new GameStateManager();
 		//AssetManager

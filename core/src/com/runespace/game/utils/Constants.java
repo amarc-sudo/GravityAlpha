@@ -43,8 +43,8 @@ public class Constants {
 	public final static int FILTER_LIGHTSTARS = 11;
 	public final static int FILTER_SPAWN = 12;
 	
-	public final static int WIDTH_PLAYER = 72;
-	public final static int HEIGHT_PLAYER = 97;
+	public final static int WIDTH_PLAYER = 71;
+	public final static int HEIGHT_PLAYER = 94;
 	
 	public final static Vector2 GRAVITY_WORLD = new Vector2(0, GRAVITY);
 }
