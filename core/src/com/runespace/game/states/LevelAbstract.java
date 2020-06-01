@@ -33,9 +33,6 @@ import com.runespace.game.utils.Constants;
 
 public abstract class LevelAbstract extends GameState implements ApplicationListener {
 
-	
-	//body
-	
 	//score
 	private FreeTypeFontGenerator.FreeTypeFontParameter parameter;
 	private FreeTypeFontGenerator generator;
@@ -67,7 +64,7 @@ public abstract class LevelAbstract extends GameState implements ApplicationList
 	//boolean for gravity and backwalk
 	protected Boolean backward = false;
 	protected Boolean gravityBool = false;
-	
+	protected Boolean xBool = false;
 	//map
 	MapsTiledLevel map;
 
@@ -103,7 +100,7 @@ public abstract class LevelAbstract extends GameState implements ApplicationList
 		//set contactlistener
 		customContactListener = new CustomContactListener();
 		world.setContactListener(customContactListener);
-		debug.setDrawBodies(false);
+		debug.setDrawBodies(true);
 		//setup camera
 		cam.setToOrtho(false, Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
 		//set hud
@@ -119,7 +116,7 @@ public abstract class LevelAbstract extends GameState implements ApplicationList
 		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && (this.customContactListener.isOnGround() || this.customContactListener.isOnHead())){
 			jump++;
 		}
-		if(Gdx.input.isKeyJustPressed((Input.Keys.A)));
+		if(Gdx.input.isKeyJustPressed((Input.Keys.A)))
 			debug.setDrawBodies(false);
 	}
 
@@ -134,8 +131,6 @@ public abstract class LevelAbstract extends GameState implements ApplicationList
 	}
 	
 	public void render(SpriteBatch sb) {
-		
-
 		map.getTmr().setView(cam);
 		map.getTmr().render();
 		sb.setProjectionMatrix(cam.combined);
@@ -157,54 +152,7 @@ public abstract class LevelAbstract extends GameState implements ApplicationList
 
 	}
 	
-	public void createPlayer(int x, int y) {
-		//Body Def
-		PolygonShape pshape = new PolygonShape();
-		/////////////BOX/////////////
 
-		//Body Def
-		bdef.position.set(x/Constants.PIXEL_METER, y/Constants.PIXEL_METER);
-		bdef.type = BodyDef.BodyType.DynamicBody;
-
-		//Create Body
-		boxPlayer = world.createBody(bdef);
-
-
-		//Polygon shape
-		pshape.setAsBox(Constants.WIDTH_PLAYER/4/Constants.PIXEL_METER, Constants.HEIGHT_PLAYER/3/Constants.PIXEL_METER);
-
-		fdef.shape = pshape;
-		fdef.filter.categoryBits = Constants.BOX_BIT;
-
-		fdef.filter.maskBits = Constants.PLARTFORM_BIT | Constants.SPHERE_BIT | Constants.COINT_BIT | Constants.TORCH_BIT;
-
-		//create Fixture
-		boxPlayer.createFixture(fdef).setUserData("box");
-
-		player = new Player(boxPlayer);
-		boxPlayer.setUserData(player);
-
-		pshape.setAsBox(Constants.WIDTH_PLAYER/5/Constants.PIXEL_METER, 10/Constants.PIXEL_METER,
-				new Vector2(0, -Constants.WIDTH_PLAYER/3/Constants.PIXEL_METER-5/Constants.PIXEL_METER), 0);
-		fdef.shape = pshape;
-		fdef.isSensor = true;
-		boxPlayer.createFixture(fdef).setUserData("foot");
-		fdef.isSensor = false;
-		//////Create head sensor///////
-		pshape.setAsBox(Constants.WIDTH_PLAYER/5/Constants.PIXEL_METER, 10/Constants.PIXEL_METER,
-				new Vector2(0, Constants.WIDTH_PLAYER/3/Constants.PIXEL_METER+1/Constants.PIXEL_METER), 0);
-		fdef.shape = pshape;
-		fdef.isSensor = true;
-		fdef.filter.categoryBits = Constants.HEAD_BIT;
-		fdef.filter.maskBits = Constants.PLARTFORM_BIT ;
-		boxPlayer.createFixture(fdef).setUserData(this);
-
-		fdef.isSensor = false;
-		///////END BOX/////////////////
-
-		 
-	}
-	
 	
 	public void moveCam(int speedCam) {
 		
@@ -224,6 +172,7 @@ public abstract class LevelAbstract extends GameState implements ApplicationList
 			score-=1;
 		if(customContactListener.isCoinG()){
 		    score+=100;
+
         }
 	}
 	
@@ -242,16 +191,32 @@ public abstract class LevelAbstract extends GameState implements ApplicationList
 	public void gameOver() {
 		gsm.set(new MainMenu(gsm, true));
 	}
+
 	public void gravityChange() {
-		if(customContactListener.isSensorG() && !gravityBool && time >= 50) {
+		if(customContactListener.isSensorG() && !gravityBool && time >= 80) {
 			world.setGravity(new Vector2(0, -Constants.GRAVITY));
 			gravityBool = true;
 			time = 0;
 		}
 		time++;
-		if(customContactListener.isSensorG() && gravityBool && time >= 50) {
+		if(customContactListener.isSensorG() && gravityBool && time >= 80) {
 			world.setGravity(new Vector2(0, Constants.GRAVITY));
 			gravityBool = false;
+			time = 0;
+		}
+		if(customContactListener.isXSensor() && !xBool && time >= 80) {
+			world.setGravity(new Vector2(-Constants.GRAVITY, 0));
+			xBool = true;
+			player.changePlayerOrientationX();
+			boxPlayer = player.getBody();
+			time = 0;
+		}
+		time++;
+		if(customContactListener.isXSensor() && xBool && time >= 80) {
+			world.setGravity(new Vector2(0, Constants.GRAVITY));
+			xBool = false;
+			player.changePlayerOrientationY();
+			boxPlayer = player.getBody();
 			time = 0;
 		}
 	}

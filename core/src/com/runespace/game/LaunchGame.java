@@ -6,13 +6,9 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.runespace.game.bdd.MySql;
 import com.runespace.game.handlers.CustomInputHandling;
 import com.runespace.game.handlers.GameStateManager;
 import com.runespace.game.states.LoadingScreen;
-import com.runespace.game.utils.Constants;
-
-import java.sql.SQLException;
 
 public class LaunchGame extends com.badlogic.gdx.Game implements Screen {
 	public static SpriteBatch batch;

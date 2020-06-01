@@ -1,5 +1,6 @@
     package com.runespace.game.desktop;
 
+import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.runespace.game.LaunchGame;
@@ -15,6 +16,7 @@ public class DesktopLauncher {
 		config.height = Constants.WINDOW_HEIGHT;
 		config.width = Constants.WINDOW_WIDTH;
 		config.title = Constants.GAME_TITLE;
+		config.addIcon("data/icone.png", Files.FileType.Internal);
 		config.forceExit = false;
 		new LwjglApplication(new LaunchGame(), config);
 		

@@ -27,17 +27,22 @@ public class SelectionLevel extends GameState {
 	private final FreeTypeFontGenerator.FreeTypeFontParameter parameter;
 	private final BitmapFont font;
 	TextButton[][] buttonTab;
+    TextButton buttonMenu;
 	TextButton.TextButtonStyle textButtonStyle;
 	Table table;
+	Table tableButtons;
 	ArrayList<TextButton> textButtons;
 	Stage stage;
+
 	public SelectionLevel(GameStateManager gsm) {
 		super(gsm);
 		stage = new Stage();
 
 		table = new Table();
+		tableButtons = new Table();
 		Gdx.input.setInputProcessor(stage);
 		table.setDebug(true);
+		tableButtons.setDebug(true);
 		generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/gamefont.TTF"));
 		parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		parameter.size = 50;
@@ -50,16 +55,20 @@ public class SelectionLevel extends GameState {
 		textButtonStyle.font = font;
 		textButtons = new ArrayList<TextButton>();
 		table.defaults().width(100);
+		tableButtons.defaults().bottom();
 		createLevelSelector();
 		// TODO Auto-generated constructor stub
 		table.setFillParent(true);
-
+		tableButtons.setFillParent(true);
 		stage.addActor(table);
+		stage.addActor(tableButtons);
+		System.out.println("coucou");
 	}
 
 	@Override
 	protected void handleInput() {
 		// TODO Auto-generated method stub
+		System.out.println("HandledInput");
 		int x = 0;
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 5; j++) {
@@ -70,6 +79,9 @@ public class SelectionLevel extends GameState {
 				}
 			}
 		}
+		if (buttonMenu.isPressed())
+			this.gsm.set(new MainMenu2(gsm));
+
 	}
 
 	@Override
@@ -97,7 +109,6 @@ public class SelectionLevel extends GameState {
 		cam.viewportHeight = height;
 		cam.update();
 		stage.getViewport().update(width,height);
-		System.out.println("coucou");
 	}
 
 	public void createLevelSelector(){
@@ -113,6 +124,11 @@ public class SelectionLevel extends GameState {
 			}
 			table.row();
 		}
+		buttonMenu = new TextButton("menu", textButtonStyle);
+		buttonMenu.setBounds(buttonMenu.getX(), buttonMenu.getY(), buttonMenu.getWidth(), buttonMenu.getHeight());
+        buttonMenu.setName("Menu");
+		tableButtons.add(buttonMenu).bottom();
+		tableButtons.bottom();
 	}
 
 }

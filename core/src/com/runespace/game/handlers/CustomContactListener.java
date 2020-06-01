@@ -16,6 +16,7 @@ public class CustomContactListener implements ContactListener {
 	private int coinContacts = 0;
 	private int dead = 0;
 	private int win = 0;
+	private int xSensor = 0;
 	//contact commence
 	@Override
 	public void beginContact(Contact contact) {
@@ -77,7 +78,15 @@ public class CustomContactListener implements ContactListener {
 			 
 			dead++;
 		}
+		if(fA.getUserData() != null && fA.getUserData().equals("xSensor")) {
 
+			xSensor++;
+		}
+
+		if(fB.getUserData() != null && fB.getUserData().equals("xSensor")) {
+
+			xSensor++;
+		}
 		if(fA.getUserData() != null && fA.getFilterData().categoryBits == Constants.COINT_BIT) {
 		    coinContacts++;
 		    System.out.println(fA.getUserData().toString());
@@ -146,6 +155,15 @@ public class CustomContactListener implements ContactListener {
         if(fB.getUserData() != null && fB.getFilterData().categoryBits == Constants.COIN_USE_BIT) {
             coinContacts--;
         }
+		if(fA.getUserData() != null && fA.getUserData().equals("xSensor")) {
+
+			xSensor--;
+		}
+
+		if(fB.getUserData() != null && fB.getUserData().equals("xSensor")) {
+
+			xSensor--;
+		}
 	}
 
 	//avant le dbut du contact
@@ -177,5 +195,8 @@ public class CustomContactListener implements ContactListener {
 	}
 	public boolean isWin(){
 		return win > 0;
+	}
+	public boolean isXSensor(){
+		return xSensor > 0;
 	}
 }

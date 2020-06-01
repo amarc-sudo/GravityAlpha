@@ -42,9 +42,13 @@ public class Constants {
 	public final static int FILTER_TILE_COIN = 10;
 	public final static int FILTER_LIGHTSTARS = 11;
 	public final static int FILTER_SPAWN = 12;
+	public final static int FILTER_XSENSOR = 15;
 	
 	public final static int WIDTH_PLAYER = 71;
 	public final static int HEIGHT_PLAYER = 94;
 	
 	public final static Vector2 GRAVITY_WORLD = new Vector2(0, GRAVITY);
+	public final static Vector2 GRAVITY_WORLD_X = new Vector2(GRAVITY, 0);
+	public final static String[] NAME_MENU = {"Levels", "HighScore", "Option", "Quit"};
+	public final static String[] NAME_OPTION = {"Left", "Right", "Jump", "Crouch", "Pause", "Shaders" };
 }

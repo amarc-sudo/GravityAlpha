@@ -44,7 +44,7 @@ public class LoadingScreen extends GameState {
 	public void update(float dt) {
 		// TODO Auto-generated method stub
 		if(LaunchGame.assetManager.update()){
-			this.gsm.set(new MainMenu(gsm, false));
+			this.gsm.set(new MainMenu(gsm, true));
 		}
 	}
 
@@ -78,6 +78,8 @@ public class LoadingScreen extends GameState {
 		LaunchGame.assetManager.load("maps/level2.tmx", TiledMap.class);
 		LaunchGame.assetManager.setLoader(TiledMap.class,  new TmxMapLoader(new InternalFileHandleResolver()));
 		LaunchGame.assetManager.load("maps/level3.tmx", TiledMap.class);
+		LaunchGame.assetManager.setLoader(TiledMap.class,  new TmxMapLoader(new InternalFileHandleResolver()));
+		LaunchGame.assetManager.load("maps/mainMenu.tmx", TiledMap.class);
 
 		//load Textures
 		LaunchGame.assetManager.load("Sprites/player.png", Texture.class);
@@ -86,10 +88,14 @@ public class LoadingScreen extends GameState {
 		LaunchGame.assetManager.load("Sprites/p1_jump.png", Texture.class);
 		LaunchGame.assetManager.load("Sprites/frame.png", Texture.class);
 		LaunchGame.assetManager.load("Sprites/sprite_de_base.png", Texture.class);
+		LaunchGame.assetManager.load("Sprites/sprite_de_base_x.png", Texture.class);
 		LaunchGame.assetManager.load("Sprites/sprite_de_base2.png", Texture.class);
         LaunchGame.assetManager.load("Sprites/sprite_de_chute.png", Texture.class);
+		LaunchGame.assetManager.load("Sprites/sprite_de_chute_x.png", Texture.class);
         LaunchGame.assetManager.load("Sprites/sprite_de_saut.png", Texture.class);
+		LaunchGame.assetManager.load("Sprites/sprite_de_saut_x.png", Texture.class);
         LaunchGame.assetManager.load("Sprites/run.png", Texture.class);
+		LaunchGame.assetManager.load("Sprites/run_x.png", Texture.class);
 		LaunchGame.assetManager.load("button.png", Texture.class);
 		LaunchGame.assetManager.load("background.jpg", Texture.class);
 		LaunchGame.assetManager.load("background/aled.png", Texture.class);

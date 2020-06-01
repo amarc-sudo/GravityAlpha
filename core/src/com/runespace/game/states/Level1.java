@@ -44,6 +44,7 @@ public class Level1 extends LevelAbstract implements ApplicationListener {
 
 		map.createStaticObject(Constants.FILTER_DEAD, filter, "dead", true);
 		map.createStaticObject(Constants.FILTER_SENSORG, filter, "sensorG", true);
+		map.createStaticObject(Constants.FILTER_XSENSOR, filter, "xSensor", true);
 		map.createCoin();
 		map.createStaticObject(Constants.FILTER_WIN, filter, "win", true);
 		//end map
@@ -51,9 +52,10 @@ public class Level1 extends LevelAbstract implements ApplicationListener {
 		for(MapObject object : map.getTiledMap().getLayers().get(12).getObjects().getByType(RectangleMapObject.class)) {
 			rect = ((RectangleMapObject) object).getRectangle();
 		}
-		player = new Player(boxPlayer);
+		player = new Player(boxPlayer, customContactListener);
 		player.createPlayer((int) rect.getX(), (int) rect.getY(), world, bdef, fdef);
 		boxPlayer = player.getBody();
+
 	}
 
 	@Override
@@ -102,14 +104,16 @@ public class Level1 extends LevelAbstract implements ApplicationListener {
 	public void render(SpriteBatch sb) {
 		// TODO Auto-generated method stub
 		super.render(sb);
-
-		
 		sb.begin();
 
-		if(gravityBool)
-			player.render(sb, gravityBool);
-		if(!gravityBool)
-			player.render(sb, gravityBool);
+		if(gravityBool && xBool)
+			player.render(sb, gravityBool, xBool);
+		if(!gravityBool && xBool)
+			player.render(sb, gravityBool, xBool);
+		if(gravityBool && !xBool)
+			player.render(sb, gravityBool, xBool);
+		if(!gravityBool && !xBool)
+			player.render(sb, gravityBool, xBool);
 		sb.end();
 		debug.render(world, box2dCam.combined);
 		map.renderRayHandler();
@@ -131,27 +135,6 @@ public class Level1 extends LevelAbstract implements ApplicationListener {
 		super.dispose();
 		world.dispose();
 	}
-/*
-	@Override
-	public void createTiles(TiledMap tiledMap) {
-		// TODO Auto-generated method stub
-		super.createTiles(tiledMap);
-	}
-
-	@Override
-	public void createTiledBodies(TiledMapTileLayer layer, short BITS) {
-		// TODO Auto-generated method stub
-		super.createTiledBodies(layer, BITS);
-	}*/
-
-
-
-	@Override
-	public void createPlayer(int x, int y) {
-		// TODO Auto-generated method stub
-		super.createPlayer(x, y);
-	}
-
 
 
 	@Override
