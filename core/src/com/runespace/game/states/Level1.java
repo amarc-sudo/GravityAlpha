@@ -106,14 +106,6 @@ public class Level1 extends LevelAbstract implements ApplicationListener {
 		super.render(sb);
 		sb.begin();
 
-		if(gravityBool && xBool)
-			player.render(sb, gravityBool, xBool);
-		if(!gravityBool && xBool)
-			player.render(sb, gravityBool, xBool);
-		if(gravityBool && !xBool)
-			player.render(sb, gravityBool, xBool);
-		if(!gravityBool && !xBool)
-			player.render(sb, gravityBool, xBool);
 		sb.end();
 		debug.render(world, box2dCam.combined);
 		map.renderRayHandler();
