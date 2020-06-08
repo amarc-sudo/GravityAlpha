@@ -9,7 +9,7 @@ import com.runespace.game.utils.Constants;
 
 public class B2DSprites {
     protected Body body;
-    protected Animation animation;
+    protected Animation animation, animationR;
     protected float width;
     protected float height;
 
@@ -23,7 +23,11 @@ public class B2DSprites {
         width = sprites[0].getRegionWidth();
         height = sprites[0].getRegionHeight();
     }
-
+    public void setAnimationR(TextureRegion[] sprites, float delay){
+        animationR = new Animation(sprites, delay);
+        width = sprites[0].getRegionWidth();
+        height = sprites[0].getRegionHeight();
+    }
     public void update(float dt){
         animation.update(dt);
     }

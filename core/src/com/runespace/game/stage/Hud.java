@@ -29,21 +29,23 @@ public class Hud  {
 	private Viewport viewport;
 	
 	public int score;
-	
+	public float time;
 	
 	private Button buttonPause;
 	private TextButtonStyle textButtonStyle;
 	
 	@SuppressWarnings("unused")
 	private int jump;
-	
+	private int worldTimer;
 	Label scoreLabel, jumpLabel;
 	
 	public Hud(Viewport viewport, SpriteBatch sb) {
+		this.time = 0;
 		this.sb = sb;
 		this.viewport = viewport;
 		stage = new Stage();
-		
+		this.worldTimer = 0;
+
 		Table table = new Table();
 		table.top();
 		table.setFillParent(true);
@@ -72,11 +74,25 @@ public class Hud  {
 	    buttonPause.setPosition(0, 0);
 		stage.addActor(buttonPause);
 	}
-	public void update(int i, int jump) {
+	public void update(int i, int jump, float dt) {
 		this.score = i;
-		scoreLabel.setText("Score :"+i);
+		this.time += Gdx.graphics.getDeltaTime();
+		System.out.println(time);
+		if(time >= 1){
+			worldTimer++;
+			scoreLabel.setText(String.format("%03d", worldTimer));
+			time = 0;
+		}
+		//scoreLabel.setText("Score :"+score);
 		this.jump = jump;
 		jumpLabel.setText("Jump :"+jump);
+	}
+	public void dispose(){
+		stage.dispose();
+	}
+
+	public void resize(int width, int height){
+		stage.getViewport().update(width, height);
 	}
 
 	public boolean pausePressed(){ return buttonPause.isPressed();}

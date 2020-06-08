@@ -16,6 +16,7 @@ public class CustomContactListener implements ContactListener {
 	private int coinContacts = 0;
 	private int dead = 0;
 	private int win = 0;
+	private int xSensor = 0;
 	//contact commence
 	@Override
 	public void beginContact(Contact contact) {
@@ -24,10 +25,10 @@ public class CustomContactListener implements ContactListener {
 		Fixture fB = contact.getFixtureB();
 
 		if(fB.getUserData() != null && fB.getUserData().equals("win")) {
-			win--;
+			win++;
 		}
 		if(fA.getUserData() != null && fA.getUserData().equals("win")) {
-			win--;
+			win++;
 		}
 
 		if(fA.getUserData() != null && fA.getUserData().equals("foot")) {
@@ -40,12 +41,14 @@ public class CustomContactListener implements ContactListener {
 			footContacts++;
 		}
 		if(fA.getUserData()!= null && fA.getUserData().equals("sensorG")) {
-			sensorGContacts++;
+			if (sensorGContacts==0)
+				sensorGContacts++;
 			
 		}
 		
 		if(fB.getUserData()!= null && fB.getUserData().equals("sensorG")) {
-			sensorGContacts++;
+			if (sensorGContacts==0)
+				sensorGContacts++;
 			
 		}
 		if(fA.getUserData() != null && fA.getFilterData().categoryBits == Constants.HEAD_BIT) {
@@ -75,10 +78,19 @@ public class CustomContactListener implements ContactListener {
 			 
 			dead++;
 		}
+		if(fA.getUserData() != null && fA.getUserData().equals("xSensor")) {
 
+			xSensor++;
+		}
+
+		if(fB.getUserData() != null && fB.getUserData().equals("xSensor")) {
+
+			xSensor++;
+		}
 		if(fA.getUserData() != null && fA.getFilterData().categoryBits == Constants.COINT_BIT) {
 		    coinContacts++;
-			((Coin)fB.getUserData()).onHeadHit();
+		    System.out.println(fA.getUserData().toString());
+			((Coin)fA.getUserData()).onHeadHit();
 		}
 
 		if(fB.getUserData() != null && fB.getFilterData().categoryBits == Constants.COINT_BIT) {
@@ -103,10 +115,12 @@ public class CustomContactListener implements ContactListener {
 			footContacts--;
 		}
 		if(fA.getUserData() != null && fA.getUserData().equals("sensorG")) {
+			if (sensorGContacts==1)
 			sensorGContacts--;
 		}
 		
 		if(fB.getUserData() != null && fB.getUserData().equals("sensorG")) {
+			if (sensorGContacts==1)
 			sensorGContacts--;
 		}
 		if(fA.getUserData() != null && fA.getFilterData().categoryBits == Constants.HEAD_BIT) {
@@ -141,6 +155,15 @@ public class CustomContactListener implements ContactListener {
         if(fB.getUserData() != null && fB.getFilterData().categoryBits == Constants.COIN_USE_BIT) {
             coinContacts--;
         }
+		if(fA.getUserData() != null && fA.getUserData().equals("xSensor")) {
+
+			xSensor--;
+		}
+
+		if(fB.getUserData() != null && fB.getUserData().equals("xSensor")) {
+
+			xSensor--;
+		}
 	}
 
 	//avant le dbut du contact
@@ -172,5 +195,8 @@ public class CustomContactListener implements ContactListener {
 	}
 	public boolean isWin(){
 		return win > 0;
+	}
+	public boolean isXSensor(){
+		return xSensor > 0;
 	}
 }

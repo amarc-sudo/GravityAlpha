@@ -59,7 +59,7 @@ public class highscore extends GameState {
 	protected void handleInput() {
 		// TODO Auto-generated method stub
 		if(button.isPressed()) {
-			this.gsm.set(new Level4(gsm, Constants.GRAVITY_WORLD));
+			//this.gsm.set(new Level1(gsm, Constants.GRAVITY_WORLD), "level1", 1);
 		}
 	}
 

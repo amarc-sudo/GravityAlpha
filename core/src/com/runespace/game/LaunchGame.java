@@ -22,10 +22,9 @@ public class LaunchGame extends com.badlogic.gdx.Game implements Screen {
 	
 	@Override
 	public void create () {
+		//System.out.println(Constants.NAME);
 		batch = new SpriteBatch();
 		gsm = new GameStateManager();
-		
-		
 		//AssetManager
 		assetManager = new AssetManager();
 
@@ -68,7 +67,7 @@ public class LaunchGame extends com.badlogic.gdx.Game implements Screen {
     }
 
 	/**
-	 * Called when this screen is no longer the current screen for a {@link Game}.
+	 * Called when this screen is no longer the current screen for a {}.
 	 */
 	@Override
 	public void hide() {
@@ -76,7 +75,7 @@ public class LaunchGame extends com.badlogic.gdx.Game implements Screen {
 	}
 
 	/**
-	 * Called when this screen becomes the current screen for a {@link Game}.
+	 * Called when this screen becomes the current screen for a {}.
 	 */
 	@Override
 	public void show() {
